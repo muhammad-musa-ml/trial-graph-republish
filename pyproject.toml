@@ -1,0 +1,10 @@
+[project]
+name = "trial-graph-republish"
+version = "0.1.0"
+description = "Publish a clinical-trial knowledge graph and republish only what an interpretation change touches."
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

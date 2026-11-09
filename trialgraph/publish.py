@@ -124,6 +124,16 @@ def _put_rules(conn, interp):
     conn.execute("INSERT OR REPLACE INTO meta VALUES ('interpretation', ?)", (interp.version,))
 
 
+def _sync_rules(conn, interp):
+    """Change only the stored rules that differ from the new interpretation."""
+    wanted = {row[0]: row for row in interp.as_rows()}
+    current = {row[0]: row for row in conn.execute("SELECT * FROM rules")}
+    conn.executemany("DELETE FROM rules WHERE rule_id=?", [(i,) for i in current if i not in wanted])
+    conn.executemany("INSERT OR REPLACE INTO rules VALUES (?,?,?,?)",
+                     [row for i, row in wanted.items() if current.get(i) != row])
+    conn.execute("INSERT OR REPLACE INTO meta VALUES ('interpretation', ?)", (interp.version,))
+
+
 def full_publish(path, rows, interp):
     """Build the whole graph from scratch under one interpretation."""
     prep = Prepared(rows)
@@ -154,6 +164,7 @@ def full_publish(path, rows, interp):
         _put_rules(conn, interp)
         conn.execute("INSERT INTO meta VALUES ('data_digest', ?)", (prep.digest,))
         conn.execute("COMMIT")
+        rows_written = conn.total_changes
     except Exception:
         conn.execute("ROLLBACK")
         raise
@@ -161,7 +172,7 @@ def full_publish(path, rows, interp):
         conn.close()
     return {
         "trials": len(prep.clean), "quarantined": len(prep.quarantined),
-        "studies_edges": edge_count, "concepts": len(referenced),
+        "studies_edges": edge_count, "concepts": len(referenced), "rows_written": rows_written,
     }
 
 
@@ -201,8 +212,9 @@ def republish(path, rows, new):
             conn.executemany("INSERT INTO concepts VALUES (?,?)", added)
             conn.executemany("UPDATE concepts SET label=? WHERE concept_id=?", renamed)
             conn.executemany("DELETE FROM concepts WHERE concept_id=?", dropped)
-            _put_rules(conn, new)
+            _sync_rules(conn, new)
             conn.execute("COMMIT")
+            rows_written = conn.total_changes
         except Exception:
             conn.execute("ROLLBACK")
             raise
@@ -213,6 +225,7 @@ def republish(path, rows, new):
         "trials_rewritten": len(affected), "studies_edges_deleted": deleted,
         "studies_edges_inserted": inserted, "concepts_added": len(added),
         "concepts_renamed": len(renamed), "concepts_dropped": len(dropped),
+        "rows_written": rows_written,
     }
 
 

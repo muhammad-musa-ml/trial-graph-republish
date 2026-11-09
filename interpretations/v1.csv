@@ -1,0 +1,28 @@
+rule_id,match_key,concept_id,concept_label
+r001,rheumatoid arthritis,cond:rheumatoid-arthritis,Rheumatoid Arthritis
+r002,rheumatoid arthritis (ra),cond:rheumatoid-arthritis,Rheumatoid Arthritis
+r003,"arthritis, rheumatoid",cond:rheumatoid-arthritis,Rheumatoid Arthritis
+r004,crohn's disease,cond:crohns-disease,Crohn's Disease
+r005,crohn disease,cond:crohns-disease,Crohn's Disease
+r006,crohn's disease (cd),cond:crohns-disease,Crohn's Disease
+r007,ulcerative colitis,cond:ulcerative-colitis,Ulcerative Colitis
+r008,ulcerative colitis (uc),cond:ulcerative-colitis,Ulcerative Colitis
+r009,atopic dermatitis,cond:atopic-dermatitis,Atopic Dermatitis
+r010,atopic dermatitis (ad),cond:atopic-dermatitis,Atopic Dermatitis
+r011,multiple myeloma,cond:multiple-myeloma,Multiple Myeloma
+r012,multiple myeloma (mm),cond:multiple-myeloma,Multiple Myeloma
+r013,psoriasis,cond:psoriasis,Psoriasis
+r014,psoriatic arthritis,cond:psoriatic-arthritis,Psoriatic Arthritis
+r015,psoriatic arthritis (psa),cond:psoriatic-arthritis,Psoriatic Arthritis
+r016,"arthritis, psoriatic",cond:psoriatic-arthritis,Psoriatic Arthritis
+r017,hepatitis c,cond:hepatitis-c,Hepatitis C
+r018,hepatitis c (hcv),cond:hepatitis-c,Hepatitis C
+r019,hepatitis c virus,cond:hepatitis-c,Hepatitis C
+r020,hepatitis c virus (hcv),cond:hepatitis-c,Hepatitis C
+r021,hepatitis c infection,cond:hepatitis-c,Hepatitis C
+r022,hepatitis c virus infection,cond:hepatitis-c,Hepatitis C
+r023,hepatitis c virus (hcv) infection,cond:hepatitis-c,Hepatitis C
+r024,chronic hepatitis c,cond:chronic-hepatitis-c,Chronic Hepatitis C
+r025,chronic hepatitis c infection,cond:chronic-hepatitis-c,Chronic Hepatitis C
+r026,healthy volunteers,cond:healthy-volunteers,Healthy Volunteers
+r027,healthy volunteer,cond:healthy-volunteers,Healthy Volunteers
